@@ -1,0 +1,2 @@
+Ujednolicenie nazw i rozszeżeń
+Funkcje do obsługi bazy
