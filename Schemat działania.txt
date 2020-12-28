@@ -1,0 +1,62 @@
+-- Ujednolicenie języka (polski czy angielski) i rozszeżeń (png czy jpg) 
+
+1. Przygotowanie bazy kształtów
+% baza będzie wszceśniej przygotowana, a jej modifikacja odbywać się będzie za pomocą oddzielnego sktrypu
+-> każdy element(rekord) to struktura np(Rekord)
+
+% do przerobienia na matlaba:
+struct Rekord
+{
+	
+	Id; <- identyfikator do szybkieko przypożądkowywania
+	Name; <- nazwa nuty (poglądowe dla nas)
+	FileName; <- nazwa pliku
+	Image; <- znormalizowany obraz do wymiarów 128x128 (bo łaniej niż 100x100 :P)
+	Rotable; <- czy może być do góry nogami
+}
+
+% najpierw w bazie dajmy tylko oryginalne nie modyfikowane kształty symboli i nie łączmy krzyżyków z nutami mam pamysł na obejście ich łączenia
+% jak nie wystarczy to dodamy też te zmodyfikowane(10, które robiliśmy) raczej bez szumu
+% Do bazy na koniec możnaby dałączyć jej długość, aby nie zczytywać tego za każdym razem
+Sprzyda się kilka funkcji obsługujących bazę:
+  a) Po stronie tworzenia:
+	- dodawanie rekordów
+	- zapis bazy do pliku (funkcja save() % trzeba puszukać jak się jej używa)
+  b) Po stronie wywołania:
+	- wczytanie bazy z pliku (funkcja load("sciezka/nazwa.mat"))
+	- pobieranie z bazy rekordów
+
+2. Obróbka pliku wejściowego
+- histogram poziomy (suma po x)
+- wyznaczenie linii 
+- grupowanie i wyznaczenie "pięcioliń/ni" - liczba mnoga od pięciolinia
+- wycięcie warunkowe linii
+- podział na obiekty regionprops(,"Image")
+% każdą pięciolinię zrobimy osobno, bo będzie wygodniej
+
+
+3. Klasyfikator
+% kolorowanie elementów znalezioną linię pięciolinii na czerwono,
+% utworzenie ramki wokół każdej pięcielinii np. pomarańczowy(wykorzystywane później do wydzielenia każdej pięciolinii do osobnego obrazu),
+% kształty do klasyfikacji - żółty
+% kształty pojedyńcze sklasyfikowane - zielony
+% grupy kształtów sklasyfikowanych - niebieski (klucz basowy z kropkami, pocięte symbole itp.)
+% kształty niesklasyfikowane - czarny
+- normalizacja do rozmiaru 128x128
+- porównanie z bazą
+  * jeżeli nie zostały rozpoznanie próba łączenie najbliższych elementów w grupę i następnie porównywanie jej w bazie
+  % złożony pomysł nie wiem czy uda się zrealizować 
+
+4. Konwerter do xml
+% możliwy problem co jeśli nam braknie nuty w takcie, jakieś uzupełnianie pauzami lub coś (nie znam się :()
+
+5. Upakowanie wszystkiego do GUI
+- coś w oparciu o plik "GUI_pomysl.png"
+% przyciski i inne duperele które trzeba będzie podać ręcznie
+- ścieżka do zapisania xml
+%- można spróbować zapisać efekt końcowy do wav lub innego (mp3 może być problem z licencją) 
+
+% jak zdążymy
+6. Odtworzenie utworu z xml
+% pomysł trywialny wykonanie już nie
+% zostawiamy na koniec, żeby nam czasu nie brakło
