@@ -1,8 +1,5 @@
 function  saveDatabase(database, sizeOfDatabase)
-%SAVEDATABASE Zapis bazy do pliku
-% Zapisywane jest:
-% baza zawierająca rekordy (struktury) wczytanych nut
-% rozmiar bazy
+%SAVEDATABASE Saving given database and size of database to a file
 
 filename = "Data/database.mat";
 

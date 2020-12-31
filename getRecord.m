@@ -1,5 +1,5 @@
 function record = getRecord(database, index)
-%GETRECORD zwraca rekord o podanym indeksie
+%GETRECORD Returns record  of specified index from database
 record = database(index);
 end
 

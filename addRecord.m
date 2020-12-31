@@ -1,5 +1,5 @@
 function d = addRecord(database, recordToAdd)
-%ADDRECORD Dodaje rekord do bazy
+%ADDRECORD Add recordToAdd to database
 d = vertcat(database, recordToAdd);
 end
 
