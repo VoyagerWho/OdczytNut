@@ -1,8 +1,8 @@
 function Classified = Classify(im, db, dbLen)
 %CLASSIFY Classify what note is on image
 %   Classificator whether image shows one of known symbols 
-    testObj = imresize(im, [128 128]);
     Classified = noteDesc(0, 'nil', 0, 0);
+    testObj = imresize(im, [128 128]);
     for i=1:dbLen
         dbRec = getRecord(db, i);
         diff = sum(bitxor(testObj, dbRec.Image), 'all');
