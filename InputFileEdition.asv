@@ -66,7 +66,9 @@ i=1;
     
     Symbols = regionprops(CutOut, 'Area','BoundingBox', 'Image');
     
-    staffId =1;
+    
+    staffId =1;             %TO DO: need to be set by a program
+    GkeyFlag = true;   %TO DO: need to be set by a program
     
     figure;
     imshow(CutOut);
@@ -80,37 +82,39 @@ i=1;
             Notes = [Notes; noteDesc(0, 'nil', 0, 0)];
         end
     end
-         p1 = posLines(5*(staffId-1)+5) - Corners(staffId, 1);
+    
+    p1 = posLines(5*(staffId-1)+5) - Corners(staffId, 1);
     p2 = posLines(5*(staffId-1)+4) - Corners(staffId, 1);
     p3 = posLines(5*(staffId-1)+3) - Corners(staffId, 1);
     p4 = posLines(5*(staffId-1)+2) - Corners(staffId, 1);
     p5 = posLines(5*(staffId-1)+1) - Corners(staffId, 1);
+    
     % find seperated notes and calculate height
     for j=1:length(Symbols)-1
         consolidateIndex=1;
         consolidateTab=zeros(length(Symbols), 1);
         if(Notes(j).Id == 0)
+            
             for k=min(j+1, length(Symbols)):min(j+3, length(Symbols))
                 if(Notes(k).Id == 0)
                     SepSymCor = ConnectSeperatedSymbols(Symbols, j:k);
                     SepSym = CutOutImage(CutOut, SepSymCor);
                     Notes(j) = Classify(SepSym, db, dbLen);
                    
-%                     if(Notes(j).Id ~= 0)
+                    if(Notes(j).Id ~= 0)
+                        Notes(j).Height = CalculateHeight(p1,p2,p3,p4,p5, Notes(j), Symbols(j).BoundingBox, GkeyFlag);
 %                         Notes(j).Height = CalculateHeightGroup(posLines((i-1)*5+1:i*5),Notes(j), SepSymCor);
 %                         consolidateTab(j:k) = consolidateIndex;
 %                         consolidateIndex=consolidateIndex+1;
 %                         Notes(j+1:k) = Notes(j);
 %                         j=k+1;
 %                         break;
-%                     end
+                    end
+                    
                 end
             end
         else               
-j
-
-         Notes(j).Height = CalculateHeight(p1,p2,p3,p4,p5, Notes(j), Symbols(j).BoundingBox);
-
+        Notes(j).Height = CalculateHeight(p1,p2,p3,p4,p5, Notes(j), Symbols(j).BoundingBox, GkeyFlag);
        end
     end
 

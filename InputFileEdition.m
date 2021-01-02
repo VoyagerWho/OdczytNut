@@ -101,14 +101,24 @@ i=1;
                     SepSym = CutOutImage(CutOut, SepSymCor);
                     Notes(j) = Classify(SepSym, db, dbLen);
                    
-%                     if(Notes(j).Id ~= 0)
+                    if(Notes(j).Id ~= 0)
+                        SepSymCor
+                        temp = SepSymCor(1);
+                        SepSymCor(1) = SepSymCor(2);
+                        SepSymCor(2) = temp;
+                        temp2 = SepSymCor(3)
+                        SepSymCor(3) = SepSymCor(4)-SepSymCor(1);
+                        SepSymCor(4) = temp2-SepSymCor(2);
+                        SepSymCor
+                        Notes(j).Height = CalculateHeight(p1,p2,p3,p4,p5, Notes(j), SepSymCor, GkeyFlag);
 %                         Notes(j).Height = CalculateHeightGroup(posLines((i-1)*5+1:i*5),Notes(j), SepSymCor);
-%                         consolidateTab(j:k) = consolidateIndex;
-%                         consolidateIndex=consolidateIndex+1;
-%                         Notes(j+1:k) = Notes(j);
-%                         j=k+1;
-%                         break;
-%                     end
+                        consolidateTab(j:k) = consolidateIndex;
+                        consolidateIndex=consolidateIndex+1;
+                        Notes(j+1:k) = Notes(j);
+                        j=k+1;
+                        break;
+                    end
+                    
                 end
             end
         else               
