@@ -15,10 +15,11 @@ staffColored = binaryImageToRGB(staff, 0.1, 0.1, 0.9);
 % end
 figure;
 title("Let's classify!");
-subplot(1,2,1);
-imshow(staffColored );
+% subplot(1,2,1);
+imshow(staffColored);
 % unclassified
 
+% staffColored(Symbols(i).BoundingBox(2):Symbols(i).BoundingBox(2)+Symbols(i).BoundingBox(4),Symbols(i).BoundingBox(1):Symbols(i).BoundingBox(1)+Symbols(i).BoundingBox(3), :) = Symbols(i).Image*colour;
 
 
 %Lila na później - 0.8, 0.8, 1
