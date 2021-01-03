@@ -1,6 +1,7 @@
 clear;clc;close all;
 
 im = double(rgb2gray(imread("Nuty/TestNew.jpg")))/255;
+im = double(rgb2gray(imread("Nuty/TestNew.jpg")/255));
 im = ~imbinarize(im);
 [h,w]=size(im);
 imshow(im);
