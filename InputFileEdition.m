@@ -1,8 +1,8 @@
 clear;clc;close all;
 
-% im = double(rgb2gray(imread("Nuty/TestNew.jpg")))/255;
-im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
-%im = double(rgb2gray(imread("Nuty/TestNew.jpg")/255));
+%im = double(rgb2gray(imread("Nuty/TestNowy_VOL2.jpg")))/255;
+%im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
+im = double(rgb2gray(imread("Nuty/TestNew.jpg")/255));
 im = ~imbinarize(im);
 [h,w]=size(im);
 imshow(im);
@@ -22,7 +22,6 @@ end
 % Note: Lines must be 1px high
 % TODO: Lines with variable height aka 2px high
 filtered = ClearWithFilterUD(im, posLines, [0;1;0]);
-
 dist = (posLines(6) - posLines(5))/2.0;
 
 numberOfLines = length(posLines);
@@ -42,7 +41,7 @@ end
 [db, dbLen] = loadDatabase();
 
 figure;
-i=1;
+i=2;
 % for i=1:numberOfStaffs
 % podział na takty
     subplot(numberOfStaffs,1,i);
@@ -154,14 +153,14 @@ figure;
 subplot(2,1,1);
 SepSymCor = ConnectSeperatedSymbols(Symbols, [6, 7]);
 SepSym = CutOutImage(CutOut, SepSymCor);
-imshow(imresize(SepSym, [128, 128]));
+imshow(imresize(SepSym, [128, 64]));
 subplot(2,1,2);
 imshow(getRecord(db, 1).Image);
 figure;
-sum(bitxor(imresize(Symbols(10).Image, [128, 128]), getRecord(db, 2).Image), 'all')
+sum(bitxor(imresize(Symbols(19).Image, [128, 64]), getRecord(db, 52).Image), 'all')
 for s=1:length(Symbols)
    subplot(5,6,s);
-   imshow(imresize(Symbols(s).Image, [128, 128]));
+   imshow(imresize(Symbols(s).Image, [128, 64]));
 end
 
 % wycinanie kresek
