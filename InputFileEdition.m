@@ -68,10 +68,6 @@ i=1;
     end
     
     Symbols = regionprops(CutOut, 'Area','BoundingBox', 'Image', 'EulerNumber');
-    
-    
-%     staffId =1;             %TO DO: need to be set by a program
-%     GkeyFlag = true;   %TO DO: need to be set by a program
 
     figure;
     imshow(CutOut);
@@ -85,13 +81,6 @@ i=1;
             Notes = [Notes; noteDesc(0, 'nil', 0, 0, 0, 0)];
         end
     end
-    
-%     p1 = posLines(5*(staffId-1)+5) - Corners(staffId, 1);
-%     p2 = posLines(5*(staffId-1)+4) - Corners(staffId, 1);
-%     p3 = posLines(5*(staffId-1)+3) - Corners(staffId, 1);
-%     p4 = posLines(5*(staffId-1)+2) - Corners(staffId, 1);
-%     p5 = posLines(5*(staffId-1)+1) - Corners(staffId, 1);
-%     posLines(1,(5*(i-1)+1):5*i)-Corners(i, 1);
     
     % find seperated notes and calculate height
     consolidateIndex=1;
@@ -107,8 +96,7 @@ i=1;
                    
                     if(Notes(j).Id ~= 0)
                         BBox = cornersToBBox( SepSymCor);
-                        % Notes(j).Height = CalculateHeight(p1,p2,p3,p4,p5, Notes(j), BBox, GkeyFlag);
-                        Notes(j).Height = CalculateHeightGroup((posLines(1,(5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), BBox);
+                        Notes(j).Height = CalculateHeight((posLines(1,(5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), BBox);
                         consolidateTab(j:k) = consolidateIndex;
                         consolidateIndex=consolidateIndex+1;
                         Notes(j+1:k) = Notes(j);
@@ -119,9 +107,8 @@ i=1;
                 end
             end
         else               
-        % Notes(j).Height = CalculateHeight(p1,p2,p3,p4,p5, Notes(j), Symbols(j).BoundingBox, GkeyFlag);
-        Notes(j).Height = CalculateHeightGroup((posLines(1,(5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), Symbols(j).BoundingBox);
-       end
+       Notes(j).Height = CalculateHeight((posLines(1,(5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), Symbols(j).BoundingBox);
+        end
     end
 
 % kolorowanie
