@@ -1,7 +1,7 @@
 clear;clc;close all;
 
-im = double(rgb2gray(imread("Nuty/TestNew.jpg")))/255;
-%im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
+% im = double(rgb2gray(imread("Nuty/TestNew.jpg")))/255;
+im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
 %im = double(rgb2gray(imread("Nuty/TestNew.jpg")/255));
 im = ~imbinarize(im);
 [h,w]=size(im);
@@ -29,9 +29,9 @@ numberOfLines = length(posLines);
 numberOfStaffs = numberOfLines/5;
 Corners = zeros(numberOfStaffs, 4);
 for i=1:numberOfStaffs
-   Corners(i, 1) = posLines(5*(i-1)+1) - dist;
+   Corners(i, 1) = max(posLines(5*(i-1)+1) - dist, 1);
    Corners(i, 2) = 1;
-   Corners(i, 3) = posLines(5*i) + dist;
+   Corners(i, 3) = min(posLines(5*i) + dist, h);
    Corners(i, 4) = w;
 end
 
