@@ -1,7 +1,7 @@
 function filtered = ClearWithFilterUD(im, pos, filter)
 %CLEARWITHFILTERUD Clear image based on filter
 %   Clearing lines on image at exact position that math to filter 
-    [h, w] = size(im);
+    [~, w] = size(im);
     [hF, wF] = size(filter);
     middle = round([hF/2.0, wF/2.0]);
     offset = [hF, wF] - middle;
