@@ -149,19 +149,27 @@ colorClassifier(im, filtered,  Symbols, Notes);
 % imshow(SepSym);
 % title("group test");
 % group = Classify(SepSym, db, dbLen);
-figure;
-subplot(2,1,1);
-SepSymCor = ConnectSeperatedSymbols(Symbols, [6, 7]);
-SepSym = CutOutImage(CutOut, SepSymCor);
-imshow(imresize(SepSym, [128, 64]));
-subplot(2,1,2);
-imshow(getRecord(db, 1).Image);
-figure;
-sum(bitxor(imresize(Symbols(19).Image, [128, 64]), getRecord(db, 52).Image), 'all')
+% figure;
+% subplot(2,1,1);
+% SepSymCor = ConnectSeperatedSymbols(Symbols, [6, 7]);
+% SepSym = CutOutImage(CutOut, SepSymCor);
+% imshow(imresize(SepSym, [128, 64]));
+% subplot(2,1,2);
+% imshow(getRecord(db, 1).Image);
+% figure;
+% sum(bitxor(imresize(Symbols(23).Image, [128, 64]), imrotate(getRecord(db, 15).Image, 180)), 'all')
+% sum(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image), 'all')
+
 for s=1:length(Symbols)
    subplot(5,6,s);
    imshow(imresize(Symbols(s).Image, [128, 64]));
 end
+
+% figure
+% subplot(2,1,1)
+% imshow(bitxor(imresize(Symbols(23).Image, [128, 64]), imrotate(getRecord(db, 15).Image, 180)))
+% subplot(2,1,2)
+% imshow(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image))
 
 % wycinanie kresek
 % [~, width]=size(im); 
