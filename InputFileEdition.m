@@ -53,8 +53,9 @@ end
 % Can not guarantee identical sizes
 %---------------------------------------------------
 
+
 i=1;
-% for i=1:numberOfStaffs
+%for i=1:numberOfStaffs
     
     CutOut = CutOutImage(filtered, Corners(i,:));
     figure;
@@ -111,7 +112,7 @@ i=1;
                 Notes(j)= noteDesc(-1, 'measure', 0, 0, 0, 0);
                 tabDifferences(:, j) = 128*64;
             else
-                [Notes(j), tabDifferences(:, j)]= Classify(Symbols(j).Image, db, dbLen, 1.0);
+                [Notes(j), tabDifferences(:, j)]= ClassifySK(Symbols(j).Image, db, dbLen, 1.0);
             end
         else
             Notes(j)= noteDesc(0, 'nil', 0, 0, 0, 0);
@@ -133,7 +134,7 @@ i=1;
                 if(Notes(k).Id == 0)
                     SepSymCor = ConnectSeperatedSymbols(Symbols, j:k);
                     SepSym = CutOutImage(CutOut, SepSymCor);
-                    [Notes(j), tabConDif(:, j)] = Classify(SepSym, db, dbLen, 1.0);
+                    [Notes(j), tabConDif(:, j)] = ClassifySK(SepSym, db, dbLen, 1.0);
                    
                     if(Notes(j).Id ~= 0)
                         BBox = cornersToBBox(SepSymCor);
@@ -159,6 +160,7 @@ i=1;
         end
     end
     %---------------------------------------------------
+
 
 % kolorowanie
 %-------------------------------------
@@ -188,9 +190,15 @@ colorClassifier(im, filtered,  Symbols, Notes);
 % height must be calculated at the same time as classification, because
 % grouping will lose the bbox
 
-% here goes toXml konwerter
-% 
-% 
+
+%-------------------------------------------------------------------
+% Classification and separation of identified clefs and notes
+% Convertion to *.XML file
+%-------------------------------------------------------------------
+[NumCols, NumRows] = size(Notes);
+Matrix2XML(Notes, NumRows, 1, 0, 0);
+%-------------------------------------------------------------------
+
 % end
 % figure;
 % SepSymCor = ConnectSeperatedSymbols(Symbols, [2,3,4]); % reczne grupowanie
@@ -211,7 +219,7 @@ colorClassifier(im, filtered,  Symbols, Notes);
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image), 'all')
 
 for s=1:length(Symbols)
-   subplot(5,6,s);
+   subplot(6,6,s);
    imshow(imresize(Symbols(s).Image, [128, 64]));
 end
 

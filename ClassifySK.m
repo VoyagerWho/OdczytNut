@@ -1,4 +1,4 @@
-function [Classified, differences]= Classify(im, db, dbLen, factor)
+function [Classified, differences]= ClassifySK(im, db, dbLen, factor)
 %CLASSIFY Classify what note is on image
 %   Classificator whether image shows one of known symbols 
     Classified = noteDesc(0, 'nil', 0, 0, 0, 0);

@@ -1,7 +1,38 @@
-function [step, octave] = Height2Step(Height, Clef)
+function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
 %function determining step and octave for a note from its height
-    if Clef == 'G'
-        switch Height
+%function that transpose notes by x semi-steps
+    
+    if alter == -1
+        height = Height + transpose/2 -1;
+    elseif alter == 1
+        height = Height + transpose/2 +1;
+    else
+        height = Height + transpose/2;
+    end    
+    
+    if mod(height,1) ~= 0
+        if transpose>0
+            height = height - 0.5;
+            alter = 1;
+        elseif transpose<0
+            height = height + 0.5;
+            alter = -1;
+        end    
+    else
+        alter = 0;
+    end    
+
+    if mod(Staff,2) == 1
+        switch height
+            case -5
+                step = 'G';
+                octave = 3;
+            case -4
+                step = 'A';
+                octave = 3;
+            case -3
+                step = 'H';
+                octave = 3;
             case -2
                 step = 'C';
                 octave = 4;
@@ -40,10 +71,28 @@ function [step, octave] = Height2Step(Height, Clef)
                 octave = 5;
             case 10
                 step = 'A';
-                octave = 5;    
+                octave = 5;
+            case 11
+                step = 'H';
+                octave = 5;
+            case 12
+                step = 'C';
+                octave = 6;
+            case 13
+                step = 'D';
+                octave = 6;    
         end 
-    elseif Clef == 'F'
-        switch Height
+    elseif mod(Staff,2) == 0
+        switch height
+            case -5
+                step = 'H';
+                octave = 1;
+            case -4
+                step = 'C';
+                octave = 2;
+            case -3
+                step = 'D';
+                octave = 2;
             case -2
                 step = 'E';
                 octave = 2;
@@ -82,6 +131,15 @@ function [step, octave] = Height2Step(Height, Clef)
                 octave = 3;
             case 10
                 step = 'C';
+                octave = 4;
+            case 11
+                step = 'D';
+                octave = 4;
+            case 12
+                step = 'E';
+                octave = 4;
+            case 13
+                step = 'F';
                 octave = 4;    
         end 
     end    
