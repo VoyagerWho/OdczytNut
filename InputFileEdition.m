@@ -1,10 +1,11 @@
 clear;clc;close all;
-filename = "TestNew.jpg"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
+filename = "TestNowy_VOL2.jpg"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
 folder = "Nuty/";
 %im = double(rgb2gray(imread("Nuty/TestNowy_VOL2.jpg")))/255;
 %im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
 im = double(rgb2gray(imread(folder+filename)/255));
-im = ~imbinarize(im);
+colorIm = cat(3, im, im, im);
+im = ~imbinarize(im); 
 [h,w]=size(im);
 imshow(im);
 title("Original");
@@ -31,7 +32,7 @@ filtered = ClearWithFilterUD(im, posLines', [0;1;0]);
 %---------------------------------------------------
 % Designating corners of staffs' image area
 %---------------------------------------------------
-dist = (posLines(6) - posLines(5))/2.0;
+dist = round((posLines(6) - posLines(5))/2.0);
 numberOfLines = length(posLines);
 numberOfStaffs = numberOfLines/5;
 Corners = zeros(numberOfStaffs, 4);
@@ -52,10 +53,8 @@ end
 % Editing every staff seperatly in one for
 % Can not guarantee identical sizes
 %---------------------------------------------------
-
-
-i=1;
-%for i=1:numberOfStaffs
+%i=2;
+for i=1:numberOfStaffs
     
     CutOut = CutOutImage(filtered, Corners(i,:));
     figure;
@@ -128,6 +127,7 @@ i=1;
     consolidateIndex=1;
     consolidateTab=zeros(length(Symbols), 1);
     tabConDif = zeros(dbLen, length(Symbols));
+    measureNumber=0;
     for j=1:length(Symbols)-1
         if(Notes(j).Id == 0)
             for k=min(j+1, length(Symbols)):min(j+3, length(Symbols))
@@ -150,56 +150,105 @@ i=1;
                         j=k+1;
                         break;
                     end
-                    
+                else
+                    break;
                 end
             end
         else               
             Notes(j).Height = CalculateHeight((posLines((5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), Symbols(j).BoundingBox);
             Notes(j).Staff = i;
-            Notes(j).Measure = find(verLines > Symbols(j).BoundingBox(1), 1, 'first') - 1;
+            if(Notes(j).Id == -1)
+                measureNumber = measureNumber + 1;
+            end
+            Notes(j).Measure = measureNumber;
         end
     end
     %---------------------------------------------------
+    
+    
+    %---------------------------------------------------
+    % Colouring for visual purposes
+    %---------------------------------------------------
+    % staffs
+    temp=bitxor(im, filtered);
+    for y=1:h
+        for x=1:w
+            if(temp(y,x))
+              colorIm(y,x,:) = [0.1, 0.1, 0.9];
+            end
+        end
+    end
+    % staffs area
+    for y=[Corners(i, 1), Corners(i, 3)]
+        for x=1:w
+            colorIm(y,x,:) = [0.1, 0.9, 0.9];
+        end
+    end
+    for y=Corners(i, 1):Corners(i, 3)
+        for x=[1,w]
+            colorIm(y,x,:) = [0.1, 0.9, 0.9];
+        end
+    end
+    % symbols straight to notes
+    for j=1:length(Symbols)
+        temp = Symbols(j).Image;
+        beginX = int16(Symbols(j).BoundingBox(1));
+        beginY = int16(Symbols(j).BoundingBox(2))+Corners(i,1)-1;
+        [hSym, wSym] = size(temp);
+        for y=beginY:beginY+hSym-1
+            for x=beginX:beginX+wSym-1
+                if(temp(y-beginY+1,x-beginX+1))
+                    if(Notes(j).Id == -1)
+                        colorIm(y,x,:) = [0.9, 0.9, 0.1];
+                    elseif((Notes(j).Id > 0)&&(~consolidateTab(j,1)))
+                        colorIm(y,x,:) = [0.1, 0.9, 0.1];
+                    elseif((Notes(j).Id > 0)&&(consolidateTab(j,1)))
+                        colorIm(y,x,:) = [0.9, 0.1, 0.9];
+                    else
+                        colorIm(y,x,:) = [0.9, 0.1, 0.1];
+                    end  
+                end
+            end
+        end
+    end
+    
+    figure;
+    imshow(colorIm);
+    title("Coloured");
+    %---------------------------------------------------
+    
+    
+    %---------------------------------------------------
+    % Consolidating and clearing unnecessary notes/symbols
+    %---------------------------------------------------
+    % remove trashy shapes
+    indexes = find([Notes.Id] > 0);
+    Notes = Notes([Notes.Id] > 0);
+    consolidateTab = consolidateTab(indexes);
+    
+    % remove extra copies
+    maxIdx = max(consolidateTab);
+    for j=1:maxIdx
+        groupB = find(consolidateTab == j,1, 'first');
+        groupE = find(consolidateTab == j,1, 'last');
+        Notes = [Notes(1:groupB), Notes(groupE+1:end)];
+        consolidateTab = [consolidateTab(1:groupB); consolidateTab(groupE+1:end)];
+    end
+    
+    
+
+    %-------------------------------------------------------------------
+    % Classification and separation of identified clefs and notes
+    % Convertion to *.XML file
+    %-------------------------------------------------------------------
+    [NumCols, NumRows] = size(Notes);
+    Matrix2XML(Notes, NumRows, 1, 0, 0);
+    %-------------------------------------------------------------------
+
+end % end of main for loop
+%---------------------------------------------------
 
 
-% kolorowanie
-%-------------------------------------
-colorClassifier(im, filtered,  Symbols, Notes);
-
-% konsolidacja
-%-------------------------------------
-% erase trash before keys
-% j=1;
-% while((j<=length(Notes)) && (Notes(j).Id ~= 13 || Notes(j).Id ~= 14))
-%     j=j+1;
-% end
-% Notes = Notes(j:end);
-% consolidateTab = consolidateTab(j:end);
-% remove rest of trash
-%     indexes = find([Notes.Id] > 0);
-%     Notes = Notes([Notes.Id] > 0);
-%     consolidateTab = consolidateTab(indexes);
-%     % remove extra copies
-%     maxIdx = max(consolidateTab);
-%     for j=1:maxIdx
-%         groupB = find(consolidateTab == j,1, 'first');
-%         groupE = find(consolidateTab == j,1, 'last');
-%         Notes = [Notes(1:groupB); Notes(groupE+1:end)];
-%         consolidateTab = [consolidateTab(1:groupB); consolidateTab(groupE+1:end)];
-%     end
-% height must be calculated at the same time as classification, because
-% grouping will lose the bbox
-
-
-%-------------------------------------------------------------------
-% Classification and separation of identified clefs and notes
-% Convertion to *.XML file
-%-------------------------------------------------------------------
-[NumCols, NumRows] = size(Notes);
-Matrix2XML(Notes, NumRows, 1, 0, 0);
-%-------------------------------------------------------------------
-
-% end
 % figure;
 % SepSymCor = ConnectSeperatedSymbols(Symbols, [2,3,4]); % reczne grupowanie
 % SepSym = CutOutImage(CutOut, SepSymCor);
@@ -217,7 +266,7 @@ Matrix2XML(Notes, NumRows, 1, 0, 0);
 % figure;
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), imrotate(getRecord(db, 15).Image, 180)), 'all')
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image), 'all')
-
+figure;
 for s=1:length(Symbols)
    subplot(6,6,s);
    imshow(imresize(Symbols(s).Image, [128, 64]));
