@@ -46,8 +46,7 @@ end
 
 
 [db, dbLen] = loadDatabase();
-
-
+NotesDB = [];
 %---------------------------------------------------
 % Main loop
 % Editing every staff seperatly in one for
@@ -105,13 +104,14 @@ for i=1:numberOfStaffs
     % Clears of small artifacts
     %---------------------------------------------------
     tabDifferences = zeros(dbLen, length(Symbols));
+    Notes=repmat(noteDesc(0, 'nil', 0, 0, 0, 0), 1, 1 );
     for j=1:length(Symbols)
         if(Symbols(j).Area > 10)
             if(Symbols(j).Linear < linearRatio)
                 Notes(j)= noteDesc(-1, 'measure', 0, 0, 0, 0);
                 tabDifferences(:, j) = 128*64;
             else
-                [Notes(j), tabDifferences(:, j)]= ClassifySK(Symbols(j).Image, db, dbLen, 1.0);
+                [Notes(j), tabDifferences(:, j)]= Classify(Symbols(j).Image, db, dbLen, 1.0);
             end
         else
             Notes(j)= noteDesc(0, 'nil', 0, 0, 0, 0);
@@ -119,6 +119,7 @@ for i=1:numberOfStaffs
         end
     end
     %---------------------------------------------------
+    
     
     %---------------------------------------------------
     % Second classification designed for seperated symbols
@@ -134,13 +135,13 @@ for i=1:numberOfStaffs
                 if(Notes(k).Id == 0)
                     SepSymCor = ConnectSeperatedSymbols(Symbols, j:k);
                     SepSym = CutOutImage(CutOut, SepSymCor);
-                    [Notes(j), tabConDif(:, j)] = ClassifySK(SepSym, db, dbLen, 1.0);
+                    [Notes(j), tabConDif(:, j)] = Classify(SepSym, db, dbLen, 1.0);
                    
                     if(Notes(j).Id ~= 0)
                         BBox = cornersToBBox(SepSymCor);
                         Notes(j).Height = CalculateHeight((posLines((5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), BBox);
                         Notes(j).Staff = i;
-                        Notes(j).Measure = find(verLines > BBox(1), 1, 'first') - 1;
+                        Notes(j).Measure = measureNumber;
                         consolidateTab(j:k) = consolidateIndex;
                         consolidateIndex=consolidateIndex+1;
                         Notes(j+1:k) = Notes(j);
@@ -189,7 +190,7 @@ for i=1:numberOfStaffs
             colorIm(y,x,:) = [0.1, 0.9, 0.9];
         end
     end
-    % symbols straight to notes
+    % symbols
     for j=1:length(Symbols)
         temp = Symbols(j).Image;
         beginX = int16(Symbols(j).BoundingBox(1));
@@ -203,7 +204,7 @@ for i=1:numberOfStaffs
                     elseif((Notes(j).Id > 0)&&(~consolidateTab(j,1)))
                         colorIm(y,x,:) = [0.1, 0.9, 0.1];
                     elseif((Notes(j).Id > 0)&&(consolidateTab(j,1)))
-                        colorIm(y,x,:) = [0.9, 0.1, 0.9];
+                        colorIm(y,x,:) = [0.1, 0.5, 0.1];
                     else
                         colorIm(y,x,:) = [0.9, 0.1, 0.1];
                     end  
@@ -211,10 +212,6 @@ for i=1:numberOfStaffs
             end
         end
     end
-    
-    figure;
-    imshow(colorIm);
-    title("Coloured");
     %---------------------------------------------------
     
     
@@ -235,19 +232,25 @@ for i=1:numberOfStaffs
         consolidateTab = [consolidateTab(1:groupB); consolidateTab(groupE+1:end)];
     end
     
-    
-
-    %-------------------------------------------------------------------
-    % Classification and separation of identified clefs and notes
-    % Convertion to *.XML file
-    %-------------------------------------------------------------------
-    [NumCols, NumRows] = size(Notes);
-    Matrix2XML(Notes, NumRows, 1, 0, 0);
-    %-------------------------------------------------------------------
+    NotesDB = [NotesDB, Notes];
 
 end % end of main for loop
 %---------------------------------------------------
 
+
+%-------------------------------------------------------------------
+% Classification and separation of identified clefs and notes
+% Convertion to *.XML file
+%-------------------------------------------------------------------
+[~, NumRows] = size(NotesDB);
+Matrix2XML(NotesDB, NumRows, i, 0, 0);
+%-------------------------------------------------------------------
+
+
+
+figure;
+imshow(colorIm);
+title("Coloured");
 
 % figure;
 % SepSymCor = ConnectSeperatedSymbols(Symbols, [2,3,4]); % reczne grupowanie
@@ -256,13 +259,13 @@ end % end of main for loop
 % title("group test");
 % group = Classify(SepSym, db, dbLen);
 
-% figure;
-% subplot(2,1,1);
+figure;
+subplot(2,1,1);
 % SepSymCor = ConnectSeperatedSymbols(Symbols, [6, 7]);
 % SepSym = CutOutImage(CutOut, SepSymCor);
-% imshow(imresize(SepSym, [128, 64]));
+% imshow(imresize(Symbols(14).Image, [128, 64]));
 % subplot(2,1,2);
-% imshow(getRecord(db, 1).Image);
+% imshow(imrotate(getRecord(db, 15).Image, 180));
 % figure;
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), imrotate(getRecord(db, 15).Image, 180)), 'all')
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image), 'all')
