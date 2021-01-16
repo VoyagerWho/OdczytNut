@@ -18,14 +18,28 @@ function height = CalculateHeight(posLines, note, symBBox)
         case 1
             posMiddle  = symBBox(2)+middle; 
             height = round((posLines(5)-posMiddle)/jump);
-            
-        case {2 3 4 5}
-            if note.Rotated == 0
-                position = symBBox(2)+(symBBox(4)*17)/20;
+        case {2 3}
+             if note.Height == 0
+                if note.Rotated == 0
+                    position = symBBox(2)+(symBBox(4)*7)/8;
+                else
+                    position = symBBox(2)+(symBBox(4))/8;
+                end
+                height = round((posLines(5)-position)/jump)
             else
-                position = symBBox(2)+(symBBox(4)*3)/20;
+                if note.Rotated == 1
+                    note.Height= 8 - note.Height ;  
+                end
             end
-            height = round((posLines(5)-position)/jump);
+        case {4 5}
+            if note.Height == 0
+                if note.Rotated == 0
+                    position = symBBox(2)+(symBBox(4)*17)/20;
+                else
+                    position = symBBox(2)+(symBBox(4)*3)/20;
+                end
+                height = round((posLines(5)-position)/jump);
+            end
        
         case 6
             if isHalfPause(posLines(3),posLines(2),note,symBBox)
