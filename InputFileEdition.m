@@ -236,7 +236,9 @@ for i=1:numberOfStaffs
 
 end % end of main for loop
 %---------------------------------------------------
-
+%---TEST----
+[sharp,flat]=findScale(NotesDB)
+%---TEST END----
 
 %-------------------------------------------------------------------
 % Classification and separation of identified clefs and notes
