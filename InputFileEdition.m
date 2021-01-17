@@ -105,6 +105,7 @@ for i=1:numberOfStaffs
     %---------------------------------------------------
     tabDifferences = zeros(dbLen, length(Symbols));
     Notes=repmat(noteDesc(0, 'nil', 0, 0, 0, 0), 1, 1 );
+    
     for j=1:length(Symbols)
         if(Symbols(j).Area > 10)
             if(Symbols(j).Linear < linearRatio)
@@ -155,7 +156,8 @@ for i=1:numberOfStaffs
                     break;
                 end
             end
-        else               
+        else   
+            
             Notes(j).Height = CalculateHeight((posLines((5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), Symbols(j).BoundingBox);
             Notes(j).Staff = i;
             if(Notes(j).Id == -1)
@@ -237,7 +239,7 @@ for i=1:numberOfStaffs
 end % end of main for loop
 %---------------------------------------------------
 %---TEST----
-[sharp,flat]=findScale(NotesDB)
+[sharp,flat]=findScale(NotesDB);
 %---TEST END----
 
 %-------------------------------------------------------------------
