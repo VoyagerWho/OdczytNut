@@ -52,7 +52,6 @@ NotesDB = [];
 % Editing every staff seperatly in one for
 % Can not guarantee identical sizes
 %---------------------------------------------------
-%i=2;
 for i=1:numberOfStaffs
     
     CutOut = CutOutImage(filtered, Corners(i,:));
@@ -60,40 +59,15 @@ for i=1:numberOfStaffs
     imshow(CutOut);
     title("Stuff number: (" + i + ")");
     [hc, ~] = size(CutOut);
-
-
-    %---------------------------------------------------
-    % First method of sepereting measures
-    % Easier but doesn't work with single staff
-    % NOTE: left for reference
-    %---------------------------------------------------
-    %     verBrightness = sum(double(CutOut), 1);
-    %     figure;
-    %     plot(1:w,verBrightness);
-    %     verBrightTreshold = hc*0.6;
-    %     VposLines=find(verBrightness>verBrightTreshold);
-    %     for j = VposLines
-    %         for k=1:hc
-    %             CutOut(k,j-1) = 0;
-    %             CutOut(k,j) = 0;
-    %             CutOut(k,j+1) = 0;
-    %         end
-    %     end
-    %---------------------------------------------------
     Symbols = regionprops(CutOut, 'Area','BoundingBox', 'Image', 'EulerNumber');
     
     %---------------------------------------------------
     % Second method of sepereting measures
     % Uses ratio between w and h of Symbols' BBox
     %---------------------------------------------------
+    linearRatio = 0.15;
     for j=1:length(Symbols)
         Symbols(j).Linear = Symbols(j).BoundingBox(3)/Symbols(j).BoundingBox(4);
-    end
-    linearRatio = 0.15;
-    temp = Symbols([Symbols.Linear] < linearRatio);
-    verLines = zeros(length(temp), 1);
-    for j=1:length(temp)
-        verLines(j) = temp(j).BoundingBox(1);
     end
     %---------------------------------------------------
     
@@ -249,11 +223,14 @@ end % end of main for loop
 Matrix2XML(NotesDB, NumRows, i, 0, 0);
 %-------------------------------------------------------------------
 
-
-
 figure;
 imshow(colorIm);
 title("Coloured");
+
+%-------------------------------------------------------------------
+% A lot of random junk that was usefull and I don't have heart
+% to just throw away and let it be forgotten
+%-------------------------------------------------------------------
 
 % figure;
 % SepSymCor = ConnectSeperatedSymbols(Symbols, [2,3,4]); % reczne grupowanie
@@ -262,8 +239,8 @@ title("Coloured");
 % title("group test");
 % group = Classify(SepSym, db, dbLen);
 
-figure;
-subplot(2,1,1);
+% figure;
+% subplot(2,1,1);
 % SepSymCor = ConnectSeperatedSymbols(Symbols, [6, 7]);
 % SepSym = CutOutImage(CutOut, SepSymCor);
 % imshow(imresize(Symbols(14).Image, [128, 64]));
@@ -272,11 +249,11 @@ subplot(2,1,1);
 % figure;
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), imrotate(getRecord(db, 15).Image, 180)), 'all')
 % sum(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image), 'all')
-figure;
-for s=1:length(Symbols)
-   subplot(6,6,s);
-   imshow(imresize(Symbols(s).Image, [128, 64]));
-end
+% figure;
+% for s=1:length(Symbols)
+%    subplot(6,6,s);
+%    imshow(imresize(Symbols(s).Image, [128, 64]));
+% end
 
 % figure
 % subplot(2,1,1)
