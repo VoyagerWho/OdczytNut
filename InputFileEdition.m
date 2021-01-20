@@ -157,7 +157,6 @@ for i=1:numberOfStaffs
                 end
             end
         else   
-            
             Notes(j).Height = CalculateHeight((posLines((5*(i-1)+1):5*i)-Corners(i, 1)), Notes(j), Symbols(j).BoundingBox);
             Notes(j).Staff = i;
             if(Notes(j).Id == -1)

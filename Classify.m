@@ -12,8 +12,8 @@ function [Classified, differences]= Classify(im, db, dbLen, factor)
         differences(i) = diff;
         
         if(diff < threshold) && (diff < minDiff)
-            Classified = noteDesc(dbRec.Id, dbRec.Name, 0, 0, 0, 0);
-%             Classified = noteDesc(dbRec.Id, dbRec.Name, 0, dbRec.Height, 0, 0);
+%             Classified = noteDesc(dbRec.Id, dbRec.Name, 0, 0, 0, 0);
+            Classified = noteDesc(dbRec.Id, dbRec.Name, 0, dbRec.Height, 0, 0);
             minDiff=diff;
         elseif(dbRec.Rotable)
             diff = sum(bitxor(testObj, imrotate(dbRec.Image, 180)), 'all');
@@ -21,8 +21,8 @@ function [Classified, differences]= Classify(im, db, dbLen, factor)
                 differences(i) = diff;
             end
             if(diff < threshold) && (diff < minDiff)
-                Classified = noteDesc(dbRec.Id, dbRec.Name, 1, 0, 0, 0);
-%                 Classified = noteDesc(dbRec.Id, dbRec.Name, 1, dbRec.Height, 0, 0);
+%                 Classified = noteDesc(dbRec.Id, dbRec.Name, 1, 0, 0, 0);
+                Classified = noteDesc(dbRec.Id, dbRec.Name, 1, dbRec.Height, 0, 0);
                 minDiff=diff;
                 differences(i) = diff;
             end
