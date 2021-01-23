@@ -10,8 +10,8 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
     % Finding lines of staffs
     %---------------------------------------------------
     horBrightness = sum(double(im), 2);
-    horBrightTreshold = max(horBrightness)*0.8;
-    posLines=find(horBrightness>horBrightTreshold);
+    horBrightThreshold = max(horBrightness)*0.8;
+    posLines=find(horBrightness>horBrightThreshold);
     filtered = ClearWithFilterUD(im, posLines', [0;1;0]);
     %---------------------------------------------------
 
@@ -21,9 +21,9 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
     %---------------------------------------------------
     dist = round((posLines(6) - posLines(5))/2.0);
     numberOfLines = length(posLines);
-    numberOfStaffs = numberOfLines/5;
-    Corners = zeros(numberOfStaffs, 4);
-    for i=1:numberOfStaffs
+    numberOfStaves = numberOfLines/5;
+    Corners = zeros(numberOfStaves, 4);
+    for i=1:numberOfStaves
        Corners(i, 1) = max(posLines(5*(i-1)+1) - dist, 1);
        Corners(i, 2) = 1;
        Corners(i, 3) = min(posLines(5*i) + dist, h);
@@ -39,7 +39,7 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
     % Editing every staff seperatly in one for
     % Can not guarantee identical sizes
     %---------------------------------------------------
-    for i=1:numberOfStaffs
+    for i=1:numberOfStaves
 
         CutOut = CutOutImage(filtered, Corners(i,:));
         Symbols = regionprops(CutOut, 'Area','BoundingBox', 'Image');
