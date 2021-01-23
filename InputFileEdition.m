@@ -1,5 +1,5 @@
 clear;clc;close all;
-filename = "TestNowy_VOL2.jpg"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
+filename = "dont_cry_2.png"; %"TestNowy_VOL2.jpg"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
 folder = "Nuty/";
 %im = double(rgb2gray(imread("Nuty/TestNowy_VOL2.jpg")))/255;
 %im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
@@ -270,8 +270,8 @@ subplot(2,1,1);
 % subplot(2,1,2);
 % imshow(imrotate(getRecord(db, 15).Image, 180));
 % figure;
-% sum(bitxor(imresize(Symbols(23).Image, [128, 64]), imrotate(getRecord(db, 15).Image, 180)), 'all')
-% sum(bitxor(imresize(Symbols(23).Image, [128, 64]), getRecord(db, 27).Image), 'all')
+sum(bitxor(imresize(Symbols(8).Image, [128, 64]), getRecord(db, 18).Image), 'all')
+sum(bitxor(imresize(Symbols(8).Image, [128, 64]), getRecord(db, 19).Image), 'all')
 figure;
 for s=1:length(Symbols)
    subplot(6,6,s);
