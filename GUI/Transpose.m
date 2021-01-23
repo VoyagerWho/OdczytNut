@@ -60,20 +60,17 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
         % First classification designed for single symbols
         % Clears of small artifacts
         %---------------------------------------------------
-        tabDifferences = zeros(dbLen, length(Symbols));
         Notes=repmat(noteDesc(0, 'nil', 0, 0, 0, 0), 1, 1 );
 
         for j=1:length(Symbols)
             if(Symbols(j).Area > 10)
                 if(Symbols(j).Linear < linearRatio)
                     Notes(j)= noteDesc(-1, 'measure', 0, 0, 0, 0);
-                    tabDifferences(:, j) = 128*64;
                 else
-                    [Notes(j), tabDifferences(:, j)]= Classify(Symbols(j).Image, db, dbLen, 1.0);
+                    Notes(j)= Classify(Symbols(j).Image, db, dbLen, 1.0);
                 end
             else
                 Notes(j)= noteDesc(0, 'nil', 0, 0, 0, 0);
-                tabDifferences(:, j) = 128*64;
             end
         end
         %---------------------------------------------------
@@ -85,7 +82,6 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
         %---------------------------------------------------
         consolidateIndex=1;
         consolidateTab=zeros(length(Symbols), 1);
-        tabConDif = zeros(dbLen, length(Symbols));
         measureNumber=0;
         for j=1:length(Symbols)-1
             if(Notes(j).Id == 0)
@@ -93,7 +89,7 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
                     if(Notes(k).Id == 0)
                         SepSymCor = ConnectSeperatedSymbols(Symbols, j:k);
                         SepSym = CutOutImage(CutOut, SepSymCor);
-                        [Notes(j), tabConDif(:, j)] = Classify(SepSym, db, dbLen, 1.0);
+                        Notes(j) = Classify(SepSym, db, dbLen, 1.0);
 
                         if(Notes(j).Id ~= 0)
                             BBox = cornersToBBox(SepSymCor);
@@ -103,9 +99,6 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
                             consolidateTab(j:k) = consolidateIndex;
                             consolidateIndex=consolidateIndex+1;
                             Notes(j+1:k) = Notes(j);
-                            for l=j+1:k
-                                tabConDif(:, l) = tabConDif(:, j);
-                            end
                             j=k+1;
                             break;
                         end
