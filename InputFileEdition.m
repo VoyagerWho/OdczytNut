@@ -11,15 +11,15 @@ imshow(im);
 title("Original");
 
 %---------------------------------------------------
-% Finding lines of staffs
+% Finding lines of staves
 %---------------------------------------------------
 horBrightness = sum(double(im), 2);
 figure;
 plot(1:h,horBrightness, '.');
 title("Horizontal Brightness");
 
-horBrightTreshold = max(horBrightness)*0.8;
-posLines=find(horBrightness>horBrightTreshold);
+horBrightThreshold = max(horBrightness)*0.8;
+posLines=find(horBrightness>horBrightThreshold);
 
 
 % Note: Lines must be 1px high
@@ -30,13 +30,13 @@ filtered = ClearWithFilterUD(im, posLines', [0;1;0]);
 
 
 %---------------------------------------------------
-% Designating corners of staffs' image area
+% Designating corners of staves' image area
 %---------------------------------------------------
 dist = round((posLines(6) - posLines(5))/2.0);
 numberOfLines = length(posLines);
-numberOfStaffs = numberOfLines/5;
-Corners = zeros(numberOfStaffs, 4);
-for i=1:numberOfStaffs
+numberOfStaves = numberOfLines/5;
+Corners = zeros(numberOfStaves, 4);
+for i=1:numberOfStaves
    Corners(i, 1) = max(posLines(5*(i-1)+1) - dist, 1);
    Corners(i, 2) = 1;
    Corners(i, 3) = min(posLines(5*i) + dist, h);
@@ -52,7 +52,7 @@ NotesDB = [];
 % Editing every staff seperatly in one for
 % Can not guarantee identical sizes
 %---------------------------------------------------
-for i=1:numberOfStaffs
+for i=1:numberOfStaves
     
     CutOut = CutOutImage(filtered, Corners(i,:));
     figure;
@@ -138,7 +138,7 @@ for i=1:numberOfStaffs
     %---------------------------------------------------
     % Colouring for visual purposes
     %---------------------------------------------------
-    % staffs
+    % staves
     temp=bitxor(im, filtered);
     for y=1:h
         for x=1:w
@@ -147,7 +147,7 @@ for i=1:numberOfStaffs
             end
         end
     end
-    % staffs area
+    % staves area
     for y=[Corners(i, 1), Corners(i, 3)]
         for x=1:w
             colorIm(y,x,:) = [0.1, 0.9, 0.9];
