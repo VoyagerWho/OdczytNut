@@ -1,14 +1,14 @@
- function Matrix2XML(Database, sizeOfDatabase, staves, fifths, transpose)
+ function Matrix2XML(Database, sizeOfDatabase, fifths, transpose, beats, beattype)
 %Function transforming noteDecs data into MusicXML: 
-%Notedatabase - notes and objects matrix; size - numbers of obcjets recognized
+%Notedatabase - notes matrix; size - numbers of notes
 %Clefdatabase - clefs on staves, staves - number of staves
 %fifths - number of fifths next to clef (tonation)
 %beats, beattype - metre
 %measuremax - number of bars
 
-[NoteDatabase, size, ClefDatabase, beats, beattype, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose);
+[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose);
 parts = 1; %% number of parts
-measure = 1;
+staves = 2;
 
 for i = 1:staves
     time{i} = [beats];
@@ -29,7 +29,6 @@ for p = 1:parts
     for s = 1:staves
         fprintf(output,'<clef number="%d">\n<sign>%c</sign>\n<line>%d</line>\n</clef>\n', s, getRecord(ClefDatabase,s).Name, getRecord(ClefDatabase,s).Height);
     end
-    s=1;
     fprintf(output,'</attributes>\n');
         
     for i = 1:size                 
@@ -37,43 +36,43 @@ for p = 1:parts
             case 1
                 disp('whole');
                 fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>4</duration>\n<type>whole</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
-                time{s} = time{s} - beattype;
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype;
             case 2
                 disp('half');
                 fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>2</duration>\n<type>half</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
-                time{s} = time{s} - beattype*(1/2);
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/2);
             case 3
                 disp('quarter');
                 fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1</duration>\n<type>quarter</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
-                time{s} = time{s} - beattype*(1/4);
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/4);
             case 4
                 disp('eighth');
                 fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1/2</duration>\n<type>eighth</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
-                time{s} = time{s} - beattype*(1/8);                          
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/8);                          
             case 5
                 disp('sixteenth');
                 fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1/4</duration>\n<type>sixteenth</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
-                time{s} = time{s} - beattype*(1/16); 
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/16); 
             case 6
                 disp('whole puase');
                 fprintf(output,'<note>\n<rest measure="yes"/>\n<duration>4</duration>\n');
-                time{s} = time{s} - beattype;
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype;
             case 7
                 disp('half puase');
                 fprintf(output,'<note>\n<rest measure="yes"/>\n<duration>2</duration>\n');
-                time{s} = time{s} - beattype*(1/2);
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/2);
             case 8
                 disp('quarter puase');
                 fprintf(output,'<note>\n<rest measure="yes"/>\n<duration>1</duration>\n');
-                time{s} = time{s} - beattype*(1/4);
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/4);
             case 9
                 disp('eighth puase');
                 fprintf(output,'<note>\n<rest measure="yes"/>\n<duration>1/2</duration>\n');
-                time{s} = time{s} - beattype*(1/8);
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/8);
             case 10
                 disp('sixteenth puase');
                 fprintf(output,'<note>\n<rest measure="yes"/>\n<duration>1/4</duration>\n');
-                time{s} = time{s} - beattype*(1/16);        
+                time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/16);        
                  
             otherwise
                 disp('ERROR: obejct not detected');                       
@@ -86,31 +85,27 @@ for p = 1:parts
         if getRecord(NoteDatabase,i).Rotated == 1
             fprintf(output,'<stem>down</stem>\n');
         end 
-        fprintf(output,'<staff>%d</staff>\n</note>\n',s);
-        if time{s}==0 
-            if s==staves
-                if measure==measuremax
+        fprintf(output,'<staff>%d</staff>\n</note>\n',getRecord(NoteDatabase,i).Staff);
+        if time{getRecord(NoteDatabase,i).Staff}==0 
+            if getRecord(NoteDatabase,i).Staff==staves
+                if getRecord(NoteDatabase,i).Measure == measuremax
                     fprintf(output,'<barline location="right">\n<bar-style>light-heavy</bar-style>\n</barline>\n');
                     break;
                 else
-                    s = 1;
-                    measure = measure + 1;
-                    for j = 1:staves
-                        time{j} = [beats];
+                    for s = 1:staves
+                        time{s} = [beats];
                     end
-                    fprintf(output,'</measure>\n<measure number="%d">',measure);
+                    fprintf(output,'</measure>\n<measure number="%d">',getRecord(NoteDatabase,i).Measure + 1);
                 end        
             else
-                s = s+1;
                 fprintf(output,'<backup>\n<duration>%d</duration>\n</backup>',beattype);
             end      
         end   
     end
        
     fprintf(output,'</measure>\n</part>\n');
-    measure = 1;
-    for j = 1:staves
-        time{j} = [beats];
+    for s = 1:staves
+        time{s} = [beats];
     end
 end
 

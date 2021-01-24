@@ -1,5 +1,5 @@
 clear;clc;close all;
-filename = "TestNowy_VOL2.jpg"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
+filename = "stairway_caly.png"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
 folder = "Nuty/";
 %im = double(rgb2gray(imread("Nuty/TestNowy_VOL2.jpg")))/255;
 %im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
@@ -84,7 +84,7 @@ for i=1:numberOfStaves
             if(Symbols(j).Linear < linearRatio)
                 Notes(j)= noteDesc(-1, 'measure', 0, 0, 0, 0);
             else
-                Notes(j)= Classify(Symbols(j).Image, db, dbLen, 1.0);
+                Notes(j)= Classify(Symbols(j).Image, db, dbLen);
             end
         else
             Notes(j)= noteDesc(0, 'nil', 0, 0, 0, 0);
@@ -106,7 +106,7 @@ for i=1:numberOfStaves
                 if(Notes(k).Id == 0)
                     SepSymCor = ConnectSeperatedSymbols(Symbols, j:k);
                     SepSym = CutOutImage(CutOut, SepSymCor);
-                    Notes(j) = Classify(SepSym, db, dbLen, 1.0);
+                    Notes(j) = Classify(SepSym, db, dbLen);
                    
                     if(Notes(j).Id ~= 0)
                         BBox = cornersToBBox(SepSymCor);
@@ -213,7 +213,8 @@ end % end of main for loop
 % Convertion to *.XML file
 %-------------------------------------------------------------------
 [~, NumRows] = size(NotesDB);
-Matrix2XML(NotesDB, NumRows, i, 0, 0);
+[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(NotesDB, NumRows, 0);
+Matrix2XML(NotesDB, NumRows, 0, 0, 4, 4);
 %-------------------------------------------------------------------
 
 figure;
