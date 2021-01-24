@@ -1,4 +1,4 @@
-function [coloredIm] = Transpose(filePath,resultPath,metrum, tonation, transpos)
+function [coloredIm] = Transpose(filePath,resultPath,metrum, signature, numberofSig, transpos)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
     im = double(rgb2gray(imread(filePath)))/255;
