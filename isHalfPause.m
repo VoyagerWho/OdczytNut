@@ -1,4 +1,4 @@
-function  flag = isHalfPause(posLines3, posLines4, note, symBBox)
+function  flag = isHalfPause(posLines3, posLines4, symBBox)
 %ISHALFPAUSE Checks if pause is whole or half
            
             diffUp=abs(symBBox(2)-posLines4);

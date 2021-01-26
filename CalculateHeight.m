@@ -43,7 +43,7 @@ function height = CalculateHeight(posLines, note, symBBox)
             end
             
         case 6
-            if isHalfPause(posLines(3),posLines(2),note,symBBox)
+            if isHalfPause(posLines(3),posLines(2), symBBox)
                 height = -1;
             else
                 height = 1;
