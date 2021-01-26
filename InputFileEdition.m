@@ -258,4 +258,3 @@ title("Coloured");
 % wycinanie kresek
 % [~, width]=size(im); 
 % im(find(sum(im, 2) > width*0.8), :) = 0;
-
