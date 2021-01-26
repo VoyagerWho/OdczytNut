@@ -84,7 +84,7 @@ for i=1:numberOfStaves
             if(Symbols(j).Linear < linearRatio)
                 Notes(j)= noteDesc(-1, 'measure', 0, 0, 0, 0);
             else
-                Notes(j)= Classify(Symbols(j).Image, db, dbLen, 1.0);
+                Notes(j)= Classify(Symbols(j).Image, db, dbLen);
             end
         else
             Notes(j)= noteDesc(0, 'nil', 0, 0, 0, 0);
@@ -106,7 +106,7 @@ for i=1:numberOfStaves
                 if(Notes(k).Id == 0)
                     SepSymCor = ConnectSeperatedSymbols(Symbols, j:k);
                     SepSym = CutOutImage(CutOut, SepSymCor);
-                    Notes(j) = Classify(SepSym, db, dbLen, 1.0);
+                    Notes(j) = Classify(SepSym, db, dbLen);
                    
                     if(Notes(j).Id ~= 0)
                         BBox = cornersToBBox(SepSymCor);
