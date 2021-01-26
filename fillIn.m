@@ -1,9 +1,7 @@
-function fillIn(time,beattype)
+function fillIn(time,beattype,output)
 %Deafault pause in case of wrongly recognized note
 
-rest = time/(beattype*(1/16));
-            
-    switch rest
+    switch time*beattype
             case 16
                 disp('whole puase');
                 fprintf(output,'<note>\n<rest measure="yes"/>\n<duration>4</duration>\n');

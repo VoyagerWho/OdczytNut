@@ -193,7 +193,7 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, signature, numberof
     % Convertion to *.XML file
     %-------------------------------------------------------------------
     [~, NumRows] = size(NotesDB);
-    Matrix2XML(NotesDB, NumRows, i, 0, 0);
+    Matrix2XML(NotesDB, NumRows, tonation(signature,numberofSig), transpos, metrum(1,1), metrum(1,2), resultPath);
     %-------------------------------------------------------------------
 end
 

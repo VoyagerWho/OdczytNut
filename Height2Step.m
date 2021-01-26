@@ -1,17 +1,16 @@
 function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
 %function determining step and octave for a note from its height
 %function that transpose notes by x semi-steps
-    
     if alter == -1
-        height = Height + transpose/2 -1;
+        height = Height + (transpose-1)/2;
     elseif alter == 1
-        height = Height + transpose/2 +1;
+        height = Height + (transpose+1)/2;
     else
         height = Height + transpose/2;
     end    
     
     if mod(height,1) ~= 0
-        if transpose>0
+        if transpose>=0
             height = height - 0.5;
             alter = 1;
         elseif transpose<0
@@ -31,7 +30,7 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
                 step = 'A';
                 octave = 3;
             case -3
-                step = 'H';
+                step = 'B';
                 octave = 3;
             case -2
                 step = 'C';
@@ -52,7 +51,7 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
                 step = 'A';
                 octave = 4;
             case 4
-                step = 'H';
+                step = 'B';
                 octave = 4;
             case 5
                 step = 'C';
@@ -73,7 +72,7 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
                 step = 'A';
                 octave = 5;
             case 11
-                step = 'H';
+                step = 'B';
                 octave = 5;
             case 12
                 step = 'C';
@@ -85,7 +84,7 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
     elseif mod(Staff,2) == 0
         switch height
             case -5
-                step = 'H';
+                step = 'B';
                 octave = 1;
             case -4
                 step = 'C';
@@ -106,7 +105,7 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
                 step = 'A';
                 octave = 2;
             case 2
-                step = 'H';
+                step = 'B';
                 octave = 2;
             case 3
                 step = 'C';
@@ -127,7 +126,7 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter)
                 step = 'A';
                 octave = 3;
             case 9
-                step = 'H';
+                step = 'B';
                 octave = 3;
             case 10
                 step = 'C';

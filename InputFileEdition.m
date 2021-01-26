@@ -1,6 +1,13 @@
 clear;clc;close all;
-filename = "stairway_caly.png"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
+filename = "dont_cry.png"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
 folder = "Nuty/";
+
+signature = "flat";
+numberofSig = 0;
+transpos = 0;
+metrum = [4,4];
+resultPath = "music.xml";
+
 %im = double(rgb2gray(imread("Nuty/TestNowy_VOL2.jpg")))/255;
 %im = double(rgb2gray(imread("Nuty/NutySkreslone.jpg")))/255;
 im = double(rgb2gray(imread(folder+filename)/255));
@@ -205,16 +212,15 @@ for i=1:numberOfStaves
 end % end of main for loop
 %---------------------------------------------------
 %---TEST----
-[sharp,flat]=findScale(NotesDB);
-%---TEST END----
+% [sharp,flat]=findScale(NotesDB);
+% ---TEST END----
 
 %-------------------------------------------------------------------
 % Classification and separation of identified clefs and notes
 % Convertion to *.XML file
 %-------------------------------------------------------------------
 [~, NumRows] = size(NotesDB);
-[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(NotesDB, NumRows, 0);
-Matrix2XML(NotesDB, NumRows, 0, 0, 4, 4);
+Matrix2XML(NotesDB, NumRows, tonation(signature,numberofSig), transpos, metrum(1,1), metrum(1,2), resultPath);
 %-------------------------------------------------------------------
 
 figure;
