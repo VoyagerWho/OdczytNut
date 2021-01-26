@@ -8,7 +8,7 @@ flat=0;
 for i=1:length(NotesDB)
     switch NotesDB(i).Id
         case 11
-        sharp=sharp+1;
+            sharp=sharp+1;
         case 12
             flat=flat+1;
         case 15
