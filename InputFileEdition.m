@@ -1,9 +1,9 @@
 clear;clc;close all;
-filename = "dont_cry.png"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
+filename = "rick.png"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/UCZENIE.jpg" "TestNew.jpg"
 folder = "Nuty/";
 
 signature = "flat";
-numberofSig = 0;
+numberofSig = 2;
 transpos = 0;
 metrum = [4,4];
 resultPath = "music.xml";
