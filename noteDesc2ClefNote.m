@@ -1,4 +1,4 @@
-function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, numberofSig, ton, ton2)
+function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, fifths, numberofSig, ton, ton2)                                                                           
 %func which sorts clefs, sharps/flats and notes 2 separate matrices and
 %renumerate the measures and staffs
 
@@ -11,18 +11,16 @@ function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Da
     laststaff = 1;
     lastmeasure = 1;
     measure = 1;
-
-    for i = 1:sizeOfDatabase
+    
+    i=1;
+    while(i<=sizeOfDatabase)
+%     for i=1:sizeOfDatabase
         if getRecord(Database,i).Id == 13
-            ClefDatabase = addRecord(ClefDatabase, struct('Name', 'G', 'Height', 2));
-            for j = 1:numberofSig
-                i = i+1;
-            end    
+            ClefDatabase = addRecord(ClefDatabase, struct('Name', 'G', 'Height', 2)); 
+            i=i+numberofSig;
         elseif getRecord(Database,i).Id == 14
-            ClefDatabase = addRecord(ClefDatabase, struct('Name', 'F', 'Height', 4));
-            for j = 1:numberofSig
-                i = i+1;
-            end 
+            ClefDatabase = addRecord(ClefDatabase, struct('Name', 'F', 'Height', 4)); 
+            i=i+numberofSig;
         elseif getRecord(Database,i).Id == 15
 %             beats = 4;
 %             beattype = 4;          
@@ -66,7 +64,8 @@ function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Da
             if measure>maxmeasure
                 maxmeasure = measure;
             end    
-        end    
+        end
+        i=i+1;
     end
     
     %SORTING NOTES BY MEASURES%

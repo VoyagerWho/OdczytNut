@@ -194,7 +194,7 @@ function [coloredIm] = Transpose(filePath,resultPath,metrum, signature, numberof
     %-------------------------------------------------------------------
     [~, NumRows] = size(NotesDB);
     [fifths, ton, ton2] = tonation(signature, numberofSig, transpos);
-    Matrix2XML(NotesDB, NumRows, fifths, ton, ton2, transpos, metrum(1,1), metrum(1,2), resultPath);    %-------------------------------------------------------------------
+    Matrix2XML(NotesDB, NumRows, fifths, numberofSig, ton, ton2, transpos, metrum(1,1), metrum(1,2), resultPath);    %-------------------------------------------------------------------
     %-------------------------------------------------------------------
 end
 

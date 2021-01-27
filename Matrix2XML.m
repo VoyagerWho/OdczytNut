@@ -1,4 +1,4 @@
- function Matrix2XML(Database, sizeOfDatabase, fifths, ton, ton2, transpose, beats, beattype, path)
+ function Matrix2XML(Database, sizeOfDatabase, fifths, numberofSig, ton, ton2, transpose, beats, beattype, path)
 
 %Function transforming noteDecs data into MusicXML: 
 %Notedatabase - notes matrix; size - numbers of notes
@@ -8,7 +8,7 @@
 %measuremax - number of bars
 % 
 
-[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, abs(fifths), ton, ton2);
+[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, abs(fifths), numberofSig, ton, ton2);
 parts = 1; %% number of parts
 staves = 2;
 fill_flague = false;
@@ -168,11 +168,11 @@ for p = 1:parts
             fill_flague = true;
         end    
         if ~fill_flague
-            if getRecord(NoteDatabase,i).Alter == 1
-                fprintf(output,'<accidental>sharp</accidental>\n');
-            elseif getRecord(NoteDatabase,i).Alter == -1
-                fprintf(output,'<accidental>flat</accidental>\n');
-            end    
+%             if getRecord(NoteDatabase,i).Alter == 1
+%                 fprintf(output,'<accidental>sharp</accidental>\n');
+%             elseif getRecord(NoteDatabase,i).Alter == -1
+%                 fprintf(output,'<accidental>flat</accidental>\n');
+%             end 
             if getRecord(NoteDatabase,i).Rotated == 1
                 fprintf(output,'<stem>down</stem>\n');
             end 

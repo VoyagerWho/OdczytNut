@@ -2,8 +2,10 @@ function [step, octave, alter] = Height2Step(Height, Staff, transpose, accidenta
 %function determining step and octave for a note from its height
 %function that transpose notes by x semi-steps
 
-alter = accidental;%%default value - alter should be -1, 1 or 0; 
-
+    alter = 2;%%default value - alter should be -1, 1 or 0; 
+    if(accidental)
+        alter = accidental;
+    end
     if mod(Staff,2) == 1
         switch Height
             case -5
