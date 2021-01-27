@@ -7,7 +7,7 @@
 %beats, beattype - metre
 %measuremax - number of bars
 % 
-% [fifths, ton] = Tonation;
+
 [NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, abs(fifths), ton, ton2);
 parts = 1; %% number of parts
 staves = 2;
@@ -168,11 +168,11 @@ for p = 1:parts
             fill_flague = true;
         end    
         if ~fill_flague
-%             if getRecord(NoteDatabase,i).Alter == 1
-%                 fprintf(output,'<accidental>sharp</accidental>\n');
-%             elseif getRecord(NoteDatabase,i).Alter == -1
-%                 fprintf(output,'<accidental>flat</accidental>\n');
-%             end    
+            if getRecord(NoteDatabase,i).Alter == 1
+                fprintf(output,'<accidental>sharp</accidental>\n');
+            elseif getRecord(NoteDatabase,i).Alter == -1
+                fprintf(output,'<accidental>flat</accidental>\n');
+            end    
             if getRecord(NoteDatabase,i).Rotated == 1
                 fprintf(output,'<stem>down</stem>\n');
             end 

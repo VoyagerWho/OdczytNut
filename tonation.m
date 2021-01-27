@@ -13,8 +13,8 @@ function [fifths, ton, ton2] = tonation(signature, numberofSig, transpose)
 
 %tonation 2 fifths translator + tonation
 %circle of fifths - changing the tonation after transpose
- 
-    ton =0;
+
+ton = 0;
     
     if signature == "sharp"
        switch numberofSig
@@ -49,7 +49,7 @@ function [fifths, ton, ton2] = tonation(signature, numberofSig, transpose)
                ton = 6;
            case 7
                ton = 11;
-       end
+        end
     end 
     
     ton2 = mod(ton + transpose, 12);

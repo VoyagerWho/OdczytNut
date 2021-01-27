@@ -3,7 +3,7 @@ filename = "stairway_caly.png"; % "TestNowy_VOL2.jpg" "/materiały_dydaktyczne/U
 folder = "Nuty/";
 
 signature = "flat";
-numberofSig = 2;
+numberofSig = 0;
 transpos = 3;
 metrum = [4,4];
 resultPath = "music.xml";
