@@ -136,7 +136,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 1
             switch step
                 case {'B', 'E', 'A', 'D', 'G'}  
-                    if alter == 1
+                    if or(alter == 1, alter == 0)
                        alter = 0;
                     else
                        alter = -1;
@@ -145,7 +145,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 2
             switch step
                 case {'F', 'C'}
-                    if alter == -1
+                    if or(alter == -1, alter == 0)
                        alter = 0;
                     else
                        alter = 1;
@@ -154,7 +154,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 3
             switch step
                 case {'B', 'E', 'A'}
-                    if alter == 1
+                    if or(alter == 1, alter == 0)
                         alter = 0;
                     else
                         alter = -1;
@@ -163,7 +163,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 4
             switch step
                 case {'F', 'C', 'G', 'D'}
-                    if alter == -1
+                    if or(alter == -1, alter == 0)
                         alter = 0;
                     else
                         alter = 1;
@@ -172,7 +172,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 5
             switch step
                 case {'B'}
-                    if alter == 1
+                    if or(alter == 1, alter == 0)
                         alter = 0;
                     else
                         alter = -1;
@@ -181,7 +181,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 6
             switch step
                 case {'B', 'E', 'A', 'D', 'G', 'C'}
-                    if alter == 1
+                    if or(alter == 1, alter == 0)
                         alter = 0;
                     else
                         alter = -1;
@@ -190,7 +190,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 7
             switch step
                 case {'F'}
-                    if alter == -1
+                    if or(alter == -1, alter == 0)
                         alter = 0;
                     else
                         alter = 1;
@@ -199,7 +199,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 8
             switch step
                 case {'B', 'E', 'A', 'D'}
-                    if alter == 1
+                    if or(alter == 1, alter == 0)
                         alter = 0;
                     else
                         alter = -1;
@@ -208,7 +208,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 9
             switch step
                 case {'F', 'C', 'G'}
-                    if alter == -1
+                    if or(alter == -1, alter == 0)
                         alter = 0;
                     else
                         alter = 1;  
@@ -217,7 +217,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 10
             switch step
                 case {'B', 'E'}
-                    if alter == 1
+                    if or(alter == 1, alter == 0)
                         alter = 0;
                     else
                         alter = -1;
@@ -226,7 +226,7 @@ alter = 2;%%default value - alter should be -1, 1 or 0;
         case 11
             switch step
                 case {'F', 'C', 'G', 'D', 'A'}
-                    if alter == -1
+                    if or(alter == -1, alter == 0)
                         alter = 0;
                     else
                         alter = 1;

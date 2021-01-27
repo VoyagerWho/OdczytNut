@@ -1,6 +1,6 @@
 function [step, alter, octave] = transposition(accidental,step,transpos,octave,ton_first)
 %transposition of steps from given transpos
-%disp(accidental);
+disp(accidental);
 
     switch ton_first
         case 1
@@ -78,8 +78,8 @@ function [step, alter, octave] = transposition(accidental,step,transpos,octave,t
             value = 9 + accidental + transpos;
         case 'B'
             value = 11 + accidental + transpos;
-            %disp(value);
-            %disp(accidental);
+            disp(value);
+            disp(accidental);
     end   
     
     if value >= 12
