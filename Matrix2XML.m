@@ -1,4 +1,4 @@
- function Matrix2XML(Database, sizeOfDatabase, fifths, ton, transpose, beats, beattype, path)
+ function Matrix2XML(Database, sizeOfDatabase, fifths, ton, ton2, transpose, beats, beattype, path)
 
 %Function transforming noteDecs data into MusicXML: 
 %Notedatabase - notes matrix; size - numbers of notes
@@ -8,7 +8,7 @@
 %measuremax - number of bars
 % 
 % [fifths, ton] = Tonation;
-[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, abs(fifths), ton);
+[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, abs(fifths), ton, ton2);
 parts = 1; %% number of parts
 staves = 2;
 fill_flague = false;

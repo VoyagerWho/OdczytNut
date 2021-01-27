@@ -1,4 +1,4 @@
-function [fifths, ton] = tonation(signature, numberofSig, transpose)
+function [fifths, ton, ton2] = tonation(signature, numberofSig, transpose)
 
 % % simple tonation 2 fifths translator
 %     
@@ -11,7 +11,8 @@ function [fifths, ton] = tonation(signature, numberofSig, transpose)
 %     end
 %     
 
-% circle of fifths - changing the tonation after transpose
+%tonation 2 fifths translator + tonation
+%circle of fifths - changing the tonation after transpose
  
     ton =0;
     
@@ -51,9 +52,9 @@ function [fifths, ton] = tonation(signature, numberofSig, transpose)
        end
     end 
     
-    ton = mod(ton + transpose, 12);
+    ton2 = mod(ton + transpose, 12);
     
-    switch ton        
+    switch ton2        
         case 0
             fifths = 0;
         case 1

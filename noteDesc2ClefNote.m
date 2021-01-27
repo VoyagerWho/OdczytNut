@@ -1,4 +1,4 @@
-function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, numberofSig, ton)
+function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, numberofSig, ton, ton2)
 %func which sorts clefs, sharps/flats and notes 2 separate matrices and
 %renumerate the measures and staffs
 
@@ -34,7 +34,7 @@ function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Da
              accidental = 0; 
         else 
             if getRecord(Database, i).Id <= 5
-                [step, octave, alter] = Height2Step(getRecord(Database,i).Height, getRecord(Database,i).Staff, transpose, accidental, ton);  
+                [step, octave, alter] = Height2Step(getRecord(Database,i).Height, getRecord(Database,i).Staff, transpose, accidental, ton, ton2);  
             else
                 step = getRecord(Database, i).Height;
                 octave = -1;               
@@ -61,6 +61,7 @@ function [NoteDatabase, sizeDb, ClefDatabase, maxmeasure] = noteDesc2ClefNote(Da
             end            
             
             NoteDb = addRecord(NoteDb, struct('Id', getRecord(Database,i).Id, 'Name', getRecord(Database,i).Name, 'Step', step, 'Octave', octave, 'Alter', alter, 'Rotated', getRecord(Database,i).Rotated, 'Measure', measure, 'Staff', staff));
+            accidental = 0;
             alter = 2;
             if measure>maxmeasure
                 maxmeasure = measure;

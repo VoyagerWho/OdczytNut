@@ -4,7 +4,7 @@ folder = "Nuty/";
 
 signature = "flat";
 numberofSig = 2;
-transpos = 0;
+transpos = 2;
 metrum = [4,4];
 resultPath = "music.xml";
 
@@ -220,8 +220,8 @@ end % end of main for loop
 % Convertion to *.XML file
 %-------------------------------------------------------------------
 [~, NumRows] = size(NotesDB);
-[fifths, ton] = tonation(signature, numberofSig, transpos);
-Matrix2XML(NotesDB, NumRows, fifths, ton, transpos, metrum(1,1), metrum(1,2), resultPath);
+[fifths, ton, ton2] = tonation(signature, numberofSig, transpos);
+Matrix2XML(NotesDB, NumRows, fifths, ton, ton2, transpos, metrum(1,1), metrum(1,2), resultPath);
 %-------------------------------------------------------------------
 figure;
 imshow(colorIm);

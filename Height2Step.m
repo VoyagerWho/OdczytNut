@@ -1,34 +1,14 @@
-function [step, octave, alter] = Height2Step(Height, Staff, transpose, alter, ton)
+function [step, octave, alter] = Height2Step(Height, Staff, transpose, accidental, ton, ton2)
 %function determining step and octave for a note from its height
 %function that transpose notes by x semi-steps
 
-%     if alter == -1
-%         height = Height + (transpose-1)/2;
-%     elseif alter == 1
-%         height = Height + (transpose+1)/2;
-%     else
-%         height = Height + transpose/2;
-%     end    
-%     
-%     if mod(height,1) ~= 0
-%         if transpose>=0
-%             height = height - 0.5;
-%             alter = 1;
-%         elseif transpose<0
-%             height = height + 0.5;
-%             alter = -1;
-%         end    
-%     else
-%         alter = 0;
-%     end    
-height = Height;
-alter = 2;
+alter = 2;%%default value - alter should be -1, 1 or 0; 
 
     if mod(Staff,2) == 1
-        switch height
+        switch Height
             case -5
                 step = 'G';
-                octave = 3;
+                octave = 3;   
             case -4
                 step = 'A';
                 octave = 3;
@@ -86,7 +66,7 @@ alter = 2;
         end 
         
     elseif mod(Staff,2) == 0
-        switch height
+        switch Height
             case -5
                 step = 'B';
                 octave = 1;
@@ -147,10 +127,12 @@ alter = 2;
         end 
     end
     
+    if transpose ~= 0
+       [step, alter, octave] = transposition(accidental,step,transpose,octave,ton);
+    end    
+    
     % recalculating alters for different tonations - circle of fifths
-    disp('TON TON TON');
-    disp(ton);
-    switch ton
+    switch ton2
         case 1
             switch step
                 case {'B', 'E', 'A', 'D', 'G'}  
@@ -190,7 +172,7 @@ alter = 2;
         case 5
             switch step
                 case {'B'}
-                    if alter == 11
+                    if alter == 1
                         alter = 0;
                     else
                         alter = -1;
