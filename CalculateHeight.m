@@ -35,9 +35,9 @@ function height = CalculateHeight(posLines, note, symBBox)
         case {4 5}
             if note.Height == 0
                 if note.Rotated == 0
-                    position = symBBox(2)+(symBBox(4)*17)/20;
+                    position = symBBox(2)+(symBBox(4)*7)/8;
                 else
-                    position = symBBox(2)+(symBBox(4)*3)/20;
+                    position = symBBox(2)+(symBBox(4))/8;
                 end
                 height = round((posLines(5)-position)/jump);
             end
