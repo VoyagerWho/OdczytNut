@@ -220,9 +220,9 @@ end % end of main for loop
 % Convertion to *.XML file
 %-------------------------------------------------------------------
 [~, NumRows] = size(NotesDB);
-Matrix2XML(NotesDB, NumRows, tonation(signature,numberofSig), transpos, metrum(1,1), metrum(1,2), resultPath);
+[fifths, ton] = tonation(signature, numberofSig, transpos);
+Matrix2XML(NotesDB, NumRows, fifths, ton, transpos, metrum(1,1), metrum(1,2), resultPath);
 %-------------------------------------------------------------------
-
 figure;
 imshow(colorIm);
 title("Coloured");

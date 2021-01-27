@@ -11,7 +11,7 @@
 <attributes>
 <divisions>1</divisions>
 <key>
-<fifths>0</fifths>
+<fifths>-2</fifths>
 </key>
 <time>
 <beats>4</beats>
@@ -31,7 +31,6 @@
 <rest measure="yes"/>
 <duration>2</duration>
 <type>half</type>
-<accidental>flat</accidental>
 <staff>1</staff>
 </note>
 <note>
@@ -43,7 +42,6 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -53,7 +51,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -63,7 +60,7 @@
 <note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -74,29 +71,25 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
 <type>sixteenth</type>
-<note>
-<rest measure="yes"/>
-<duration>1</duration>
+<staff>1</staff>
+</note>
 <backup>
-<duration>16</duration>
+<duration>4</duration>
 </backup>
 <note>
 <rest measure="yes"/>
 <duration>4</duration>
 <type>whole</type>
-<accidental>flat</accidental>
 <staff>2</staff>
 </note>
 </measure>
 <measure number="2"><note>
 <pitch>
-<step>C</step>
-<alter>0</alter>
+<step>D</step>
 <octave>5</octave>
 </pitch>
 <duration>1/2</duration>
@@ -106,8 +99,27 @@
 </note>
 <note>
 <pitch>
-<step>C</step>
-<alter>0</alter>
+<step>D</step>
+<octave>5</octave>
+</pitch>
+<duration>1/4</duration>
+<type>sixteenth</type>
+<stem>down</stem>
+<staff>1</staff>
+</note>
+<note>
+<pitch>
+<step>D</step>
+<octave>5</octave>
+</pitch>
+<duration>1/2</duration>
+<type>eighth</type>
+<stem>down</stem>
+<staff>1</staff>
+</note>
+<note>
+<pitch>
+<step>D</step>
 <octave>5</octave>
 </pitch>
 <duration>1/4</duration>
@@ -118,29 +130,6 @@
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
-<octave>5</octave>
-</pitch>
-<duration>1/2</duration>
-<type>eighth</type>
-<stem>down</stem>
-<staff>1</staff>
-</note>
-<note>
-<pitch>
-<step>C</step>
-<alter>0</alter>
-<octave>5</octave>
-</pitch>
-<duration>1/4</duration>
-<type>sixteenth</type>
-<stem>down</stem>
-<staff>1</staff>
-</note>
-<note>
-<pitch>
-<step>C</step>
-<alter>0</alter>
 <octave>5</octave>
 </pitch>
 <duration>1</duration>
@@ -157,7 +146,6 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -167,7 +155,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -177,7 +164,7 @@
 <note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -188,7 +175,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -196,12 +182,12 @@
 <staff>1</staff>
 </note>
 <backup>
-<duration>16</duration>
+<duration>4</duration>
 </backup>
 <note>
 <pitch>
 <step>E</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
@@ -212,7 +198,7 @@
 <note>
 <pitch>
 <step>E</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/4</duration>
@@ -223,7 +209,7 @@
 <note>
 <pitch>
 <step>E</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
@@ -234,7 +220,7 @@
 <note>
 <pitch>
 <step>E</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/4</duration>
@@ -245,12 +231,29 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1</duration>
 <type>quarter</type>
 <stem>down</stem>
+<staff>2</staff>
+</note>
+<note>
+<rest measure="yes"/>
+<duration>1/2</duration>
+<type>eighth</type>
+<staff>2</staff>
+</note>
+<note>
+<rest measure="yes"/>
+<duration>1/4</duration>
+<type>sixteenth</type>
+<staff>2</staff>
+</note>
+<note>
+<rest measure="yes"/>
+<duration>1/4</duration>
+<type>sixteenth</type>
 <staff>2</staff>
 </note>
 <note>
@@ -261,38 +264,18 @@
 </note>
 </measure>
 <measure number="3"><note>
-<rest measure="yes"/>
-<duration>1/4</duration>
-<type>sixteenth</type>
-<staff>2</staff>
-</note>
-<note>
-<rest measure="yes"/>
-<duration>1/4</duration>
-<type>sixteenth</type>
-<staff>2</staff>
-</note>
-<note>
-<rest measure="yes"/>
-<duration>1/2</duration>
-<type>eighth</type>
-</measure>
-<measure number="3"><note>
 <pitch>
-<step>B</step>
-<alter>1</alter>
-<octave>4</octave>
+<step>C</step>
+<octave>5</octave>
 </pitch>
 <duration>1/2</duration>
 <type>eighth</type>
-<accidental>sharp</accidental>
 <stem>down</stem>
 <staff>1</staff>
 </note>
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>5</octave>
 </pitch>
 <duration>1/4</duration>
@@ -303,7 +286,6 @@
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>5</octave>
 </pitch>
 <duration>1/4</duration>
@@ -314,7 +296,6 @@
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>5</octave>
 </pitch>
 <duration>1/2</duration>
@@ -325,7 +306,7 @@
 <note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/2</duration>
@@ -336,7 +317,7 @@
 <note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -347,7 +328,6 @@
 <note>
 <pitch>
 <step>A</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -357,7 +337,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/2</duration>
@@ -367,7 +346,6 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -377,7 +355,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -387,7 +364,7 @@
 <note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -398,7 +375,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -406,24 +382,21 @@
 <staff>1</staff>
 </note>
 <backup>
-<duration>16</duration>
+<duration>4</duration>
 </backup>
 <note>
 <pitch>
-<step>C</step>
-<alter>1</alter>
+<step>D</step>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
 <type>eighth</type>
-<accidental>sharp</accidental>
 <stem>down</stem>
 <staff>2</staff>
 </note>
 <note>
 <pitch>
 <step>D</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/4</duration>
@@ -434,7 +407,6 @@
 <note>
 <pitch>
 <step>D</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/4</duration>
@@ -445,7 +417,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
@@ -456,7 +427,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
@@ -482,16 +452,17 @@
 <type>eighth</type>
 <staff>2</staff>
 </note>
-</measure>
-<measure number="4"><note>
+<note>
 <rest measure="yes"/>
 <duration>1</duration>
 <type>quarter</type>
+<staff>2</staff>
+</note>
 </measure>
 <measure number="4"><note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>1</duration>
@@ -502,7 +473,6 @@
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>5</octave>
 </pitch>
 <duration>1/2</duration>
@@ -513,7 +483,6 @@
 <note>
 <pitch>
 <step>A</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/2</duration>
@@ -523,7 +492,6 @@
 <note>
 <pitch>
 <step>A</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -533,7 +501,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1/4</duration>
@@ -543,20 +510,27 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
 <octave>4</octave>
 </pitch>
 <duration>1</duration>
 <type>quarter</type>
 <staff>1</staff>
 </note>
+<note>
+<pitch>
+<step>F</step>
+<octave>4</octave>
+</pitch>
+<duration>1/2</duration>
+<type>eighth</type>
+<staff>1</staff>
+</note>
 <backup>
-<duration>16</duration>
+<duration>4</duration>
 </backup>
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1</duration>
@@ -566,7 +540,6 @@
 <note>
 <pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
@@ -576,7 +549,6 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1/2</duration>
@@ -587,7 +559,16 @@
 <note>
 <pitch>
 <step>F</step>
-<alter>0</alter>
+<octave>3</octave>
+</pitch>
+<duration>1</duration>
+<type>quarter</type>
+<stem>down</stem>
+<staff>2</staff>
+</note>
+<note>
+<pitch>
+<step>F</step>
 <octave>3</octave>
 </pitch>
 <duration>1</duration>
@@ -598,17 +579,7 @@
 </measure>
 <measure number="5"><note>
 <pitch>
-<step>F</step>
-<alter>0</alter>
-<octave>3</octave>
-</pitch>
-<duration>1</duration>
-<type>quarter</type>
-</measure>
-<measure number="5"><note>
-<pitch>
 <step>C</step>
-<alter>0</alter>
 <octave>5</octave>
 </pitch>
 <duration>1</duration>
@@ -619,7 +590,7 @@
 <note>
 <pitch>
 <step>B</step>
-<alter>0</alter>
+<alter>-1</alter>
 <octave>4</octave>
 </pitch>
 <duration>2</duration>
@@ -634,12 +605,11 @@
 <staff>1</staff>
 </note>
 <backup>
-<duration>16</duration>
+<duration>4</duration>
 </backup>
 <note>
 <pitch>
 <step>A</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>1</duration>
@@ -650,7 +620,6 @@
 <note>
 <pitch>
 <step>G</step>
-<alter>0</alter>
 <octave>3</octave>
 </pitch>
 <duration>2</duration>
