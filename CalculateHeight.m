@@ -53,4 +53,3 @@ function height = CalculateHeight(posLines, note, symBBox)
             height = 0;
     end
 end
-

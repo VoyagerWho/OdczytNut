@@ -1,4 +1,4 @@
- function Matrix2XML(Database, sizeOfDatabase, fifths, transpose, beats, beattype, path)
+ function Matrix2XML(Database, sizeOfDatabase, fifths, ton, transpose, beats, beattype, path)
 
 %Function transforming noteDecs data into MusicXML: 
 %Notedatabase - notes matrix; size - numbers of notes
@@ -6,8 +6,9 @@
 %fifths - number of fifths next to clef (tonation)
 %beats, beattype - metre
 %measuremax - number of bars
-
-[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose);
+% 
+% [fifths, ton] = Tonation;
+[NoteDatabase, size, ClefDatabase, measuremax] = noteDesc2ClefNote(Database, sizeOfDatabase, transpose, abs(fifths), ton);
 parts = 1; %% number of parts
 staves = 2;
 fill_flague = false;
@@ -42,7 +43,11 @@ for p = 1:parts
                    fill_flague = true;
                 else    
                    disp('whole');
-                   fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>4</duration>\n<type>whole</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   if getRecord(NoteDatabase, i).Alter ~= 2 
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>4</duration>\n<type>whole</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   else   
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<octave>%d</octave>\n</pitch>\n<duration>4</duration>\n<type>whole</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Octave);   
+                   end    
                    time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype;
                 end    
             case 2
@@ -52,7 +57,11 @@ for p = 1:parts
                    fill_flague = true;
                 else 
                    disp('half');
-                   fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>2</duration>\n<type>half</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   if getRecord(NoteDatabase, i).Alter ~= 2
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>2</duration>\n<type>half</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   else
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<octave>%d</octave>\n</pitch>\n<duration>2</duration>\n<type>half</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Octave);   
+                   end
                    time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/2);
                 end    
             case 3
@@ -61,8 +70,12 @@ for p = 1:parts
                    time{getRecord(NoteDatabase, i).Staff} = 0;
                    fill_flague = true;
                 else 
-                    disp('quarter');
-                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1</duration>\n<type>quarter</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   disp('quarter');
+                   if getRecord(NoteDatabase, i).Alter ~= 2
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1</duration>\n<type>quarter</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   else
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<octave>%d</octave>\n</pitch>\n<duration>1</duration>\n<type>quarter</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Octave);   
+                   end
                     time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/4);
                 end    
             case 4
@@ -72,7 +85,11 @@ for p = 1:parts
                    fill_flague = true;
                 else 
                     disp('eighth');
-                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1/2</duration>\n<type>eighth</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   if getRecord(NoteDatabase, i).Alter ~= 2
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1/2</duration>\n<type>eighth</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   else
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<octave>%d</octave>\n</pitch>\n<duration>1/2</duration>\n<type>eighth</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Octave);   
+                   end
                     time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/8); 
                 end    
             case 5
@@ -81,8 +98,12 @@ for p = 1:parts
                    time{getRecord(NoteDatabase, i).Staff} = 0;
                    fill_flague = true;
                 else 
-                    disp('sixteenth');
-                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1/4</duration>\n<type>sixteenth</type>\n', getRecord(NoteDatabase,i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   disp('sixteenth');
+                   if getRecord(NoteDatabase, i).Alter ~= 2
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<alter>%d</alter>\n<octave>%d</octave>\n</pitch>\n<duration>1/4</duration>\n<type>sixteenth</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Alter, getRecord(NoteDatabase,i).Octave);
+                   else
+                    fprintf(output,'<note>\n<pitch>\n<step>%c</step>\n<octave>%d</octave>\n</pitch>\n<duration>1/4</duration>\n<type>sixteenth</type>\n', getRecord(NoteDatabase, i).Step, getRecord(NoteDatabase,i).Octave);   
+                   end
                     time{getRecord(NoteDatabase, i).Staff} = time{getRecord(NoteDatabase, i).Staff} - beattype*(1/16);
                 end    
             case 6
@@ -147,11 +168,11 @@ for p = 1:parts
             fill_flague = true;
         end    
         if ~fill_flague
-            if getRecord(NoteDatabase,i).Alter == 1
-                fprintf(output,'<accidental>sharp</accidental>\n');
-            elseif getRecord(NoteDatabase,i).Alter == -1
-                fprintf(output,'<accidental>flat</accidental>\n');
-            end    
+%             if getRecord(NoteDatabase,i).Alter == 1
+%                 fprintf(output,'<accidental>sharp</accidental>\n');
+%             elseif getRecord(NoteDatabase,i).Alter == -1
+%                 fprintf(output,'<accidental>flat</accidental>\n');
+%             end    
             if getRecord(NoteDatabase,i).Rotated == 1
                 fprintf(output,'<stem>down</stem>\n');
             end 
@@ -170,7 +191,7 @@ for p = 1:parts
                 end        
             else
                 if i<=size-1 && getRecord(NoteDatabase, i+1).Staff ~= getRecord(NoteDatabase, i).Staff
-                    fprintf(output,'<backup>\n<duration>%d</duration>\n</backup>\n',(16/beattype)*beats);
+                    fprintf(output,'<backup>\n<duration>%d</duration>\n</backup>\n',beattype);
                 end    
             end      
         end
